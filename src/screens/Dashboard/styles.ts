@@ -90,6 +90,7 @@ export const Transactions = styled.View`
 export const Title = styled.Text`
   font-size: ${RFValue(18)}px;
   font-family: ${({ theme }) => theme.fonts.regular};
+  margin-bottom: 10px;
 `;
 
 export const TransactionsList = styled(
