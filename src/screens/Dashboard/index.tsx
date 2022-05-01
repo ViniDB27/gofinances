@@ -24,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import { ActivityIndicator } from "react-native";
 import { useTheme } from "styled-components";
+import { useAuth } from "../../hooks/auth";
 
 interface Transaction {
   id: number;
@@ -49,6 +50,7 @@ interface HighlightData {
 }
 
 export function Dashboard() {
+  const { user, signOut } = useAuth();
   const [isLoading, setIsloading] = useState<boolean>(true);
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [highlightData, setHighlightData] = useState<HighlightData>(
@@ -160,6 +162,10 @@ export function Dashboard() {
     }, [])
   );
 
+  async function handlerSignOut() {
+    signOut();
+  }
+
   return (
     <Container>
       {isLoading ? (
@@ -173,15 +179,15 @@ export function Dashboard() {
               <UserInfo>
                 <Photo
                   source={{
-                    uri: "https://avatars.githubusercontent.com/u/48477457?v=4",
+                    uri: user?.photo,
                   }}
                 />
                 <User>
                   <UserGreeting>Olá,</UserGreeting>
-                  <UserName>Vinicio</UserName>
+                  <UserName>{user.name}</UserName>
                 </User>
               </UserInfo>
-              <LogoutButton onpRess={() => {}}>
+              <LogoutButton onPress={handlerSignOut}>
                 <Icon name="power" />
               </LogoutButton>
             </UserWrapper>

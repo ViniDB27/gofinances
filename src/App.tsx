@@ -7,13 +7,10 @@ import {
   Poppins_500Medium,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { StatusBar } from "react-native";
-
 import theme from "./global/styles/theme";
-
-import { AppRoutes } from "./routes/app.routes";
-
-import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "react-native";
+import { AuthProvider } from "./hooks/auth";
+import { Routes } from "./routes";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,11 +24,11 @@ export default function App() {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <StatusBar barStyle="light-content" />
-      <NavigationContainer>
-        <AppRoutes />
-      </NavigationContainer>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <StatusBar barStyle="light-content" />
+        <Routes />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
